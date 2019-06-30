@@ -1,13 +1,10 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import requests as req
-from bs4 import BeautifulSoup
-
 import adquirir
 import enriquecer
 import limpiar
 import reportar
+import analisis
+import generar_pdf
+import gmail
 
 def leer(file):
     midata = adquirir.cargardatos(file)
@@ -37,19 +34,30 @@ def scrapeo():
     miscrap=adquirir.rellenar_nuevodf(miscrap,"pib",pib1)
     return miscrap
 
-def reportar(repo):
-    repo=reportar.verpaises
-    repo=reportar.elegirpais
-    mensaje=reportar.pildora_pais
-    
+def report(x):
+    repo=reportar.verpaises(x)
+    bd=reportar.elegirpais(x)
+    return bd
 
+def graficos(bd):
+    gra=analisis.grafico_barras("gname",bd.gname.value_counts()[:15].index,'bandas.png','Actos cometidos por cada organización en {}'.format(npais))
+    gra=analisis.grafico_barras("attacktype1_txt",bd['attacktype1_txt'].value_counts().index, 'metodos.png', 'Metodo preferido por los terroristas en {}'.format(npais))
+    gra=analisis.grafico_vs
+    return 
+
+def pdf(pdf):
+    x=generar_pdf.crearpdf
+    return pdf
+
+def enviaremail(mail):
+    mail=gmail.conectar_mail
+    return mail
 
 miscrap=scrapeo()
 midata = leer("gtd.csv")
 dd = (limpiarcositas(midata))
 merge=adquirir.mergear(miscrap,dd,'paises','country_name')
-print(merge.shape)
-
-
+entra=report(merge)
+gr=graficos(entra)
 
 
