@@ -21,7 +21,7 @@ def conectar_mail():
         server.login(gmail_user, gmail_password)
         print("Conectando al servidor SMTP")
     except:  
-        print("Algo malo esta pasando...")
+        print("Algo no esta funcionando bien...")
         
     #crear mensaje
     message = MIMEMultipart('alternative')
@@ -29,14 +29,17 @@ def conectar_mail():
     message['From'] = 'Servicio de inteligencia Ironhack'
     message.attach(MIMEText('Buenos dias, tal y como ha pedido, le enviamos el informe generado de Contraterrorismo'))
 
-    # añadiendo pdf
     filename='informe.pdf'
     fo=open(filename,'rb')
-    attach = email.mime.application.MIMEApplication(fo.read(),_subtype="pdf")
+    attach = MIMEApplication(fo.read(),_subtype="pdf")
     fo.close()
-    attach.add_header('Content-Disposition','attachment',filename=filename) 
+    attach.add_header('Content-Disposition','attachment',filename=filename)
+    
+    # Attachment and HTML to body message.
     message.attach(attach)
+
     to = input("¿Quieres recibirlo por mail? Escribe tu correo electrónico --> ")
+    print("Email enviado, gracias.")
     server.sendmail(gmail_user, to, message.as_string())
     # Close connection
     server.close()

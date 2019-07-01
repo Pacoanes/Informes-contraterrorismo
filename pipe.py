@@ -4,7 +4,7 @@ import limpiar
 import reportar
 import analisis
 import generar_pdf
-import gmail
+from gmail import *
 
 def leer(file):
     midata = adquirir.cargardatos(file)
@@ -39,25 +39,27 @@ def report(x):
     bd=reportar.elegirpais(x)
     return bd
 
-def graficos(bd):
-    gra=analisis.grafico_barras("gname",bd.gname.value_counts()[:15].index,'bandas.png','Actos cometidos por cada organización en {}'.format(npais))
-    gra=analisis.grafico_barras("attacktype1_txt",bd['attacktype1_txt'].value_counts().index, 'metodos.png', 'Metodo preferido por los terroristas en {}'.format(npais))
-    gra=analisis.grafico_vs
+def graficos(df):
+    gra=analisis.grafico_barras(df,"gname",df.gname.value_counts()[:15].index,'bandas.png','Actos cometidos por cada organización en {}')
+    gra=analisis.grafico_barras(df,"attacktype1_txt",df['attacktype1_txt'].value_counts().index, 'metodos.png', 'Metodo preferido por los terroristas en {}')
+    gra=analisis.grafico_vs(df)
     return 
 
-def pdf(pdf):
-    x=generar_pdf.crearpdf
-    return pdf
+def pdf(df):
+    x=generar_pdf.crearpdf(df)
+    return
 
-def enviaremail(mail):
-    mail=gmail.conectar_mail
-    return mail
+def enviaremail():
+    mail=conectar_mail()
+    return 
 
-miscrap=scrapeo()
-midata = leer("gtd.csv")
-dd = (limpiarcositas(midata))
-merge=adquirir.mergear(miscrap,dd,'paises','country_name')
-entra=report(merge)
-gr=graficos(entra)
-
+def exe():
+    miscrap=scrapeo()
+    midata = leer("gtd.csv")
+    dd = (limpiarcositas(midata))
+    merge=adquirir.mergear(miscrap,dd,'paises','country_name')
+    entra=report(merge)
+    gr=graficos(entra)
+    pun=pdf(entra)
+    em=enviaremail()
 

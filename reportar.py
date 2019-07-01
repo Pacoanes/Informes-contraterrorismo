@@ -2,28 +2,41 @@ import pandas as pd
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4, letter
 
+
 def elegirpais(df):
     comprobar=list(set(df.country_name.values))
-    print("Bienvenido al generador de informes sobre Contraterrorismo de Ironhack")
     while True:
         try:
-            npais = str(input("elige el pais en inglés: ").capitalize())
+            npais = str(input("Para elegir pais escribe su nombre en inglés: ").capitalize())
             if npais in comprobar: 
+                print("....")
                 print("generando informe sobre {}...".format(npais))
+                print("....")
                 break
             else: raise TypeError
         except TypeError:
-            print("Escribe bien el pais.")
+            print("Escribe bien el pais, parfavar...")
             continue 
     bd=df[df["country_name"]==npais]
     anho=bd.iyear.value_counts().index[0]
     num=bd.iyear.value_counts().values[0]
     ratio_anho=round(8760/num)
+    print("....")
     print("¿Sabias que el peor año de {} fue {} donde habia un ataque cada {} horas de media?".format(npais,anho,ratio_anho))            
+    print("....")
+    print("Informe Generado")
+    print("....")
+    
     return bd
 
 def verpaises(df):
-    print("quieres saber los paises disponibles?")
+    print("")
+    print("........//////                                             \\\\\.......")
+    print("Bienvenido al generador de informes sobre Contraterrorismo de Ironhack.")
+    print("........\\\\\\                                             /////.......")
+    print("")
+    print("Para generar el informe elige un pais del mundo.")
+    print("¿quieres saber los paises disponibles?")
     comprobar=list(set(df.country_name.values))
     while True:
         try:

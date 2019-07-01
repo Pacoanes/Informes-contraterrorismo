@@ -1,12 +1,17 @@
 import pandas as pd
 import time
 from fpdf import *  
+import reportar
 
-def crearpdf():
+def crearpdf(df):
+    npais=df.country_name.value_counts().index[0]
     tiempo=time.asctime(time.localtime(time.time()))
-    cel=bd.gname.value_counts().index[0]
+    cel=df.gname.value_counts().index[0]
+    anho=df.iyear.value_counts().index[0]
+    num=df.iyear.value_counts().values[0]
+    ratio_anho=round(8760/num)
     if cel=="Unknown":
-        cel=bd.gname.value_counts().index[1]
+        cel=df.gname.value_counts().index[1]
     #empieza pdf
     pdf=FPDF()                   
     pdf.add_page()                         
@@ -40,13 +45,7 @@ def crearpdf():
     pdf.cell(-10)
     pdf.cell(10, 205,"con fines políticos son delitos aberrantes que, cuando tienen carácter generalizado") 
     pdf.cell(-10)
-    pdf.cell(10, 215,"o sistemático, pueden constituir crímenes de lesa humanidadLos actos violentos perpetrados")
-    pdf.cell(-10)
-    pdf.cell(10, 225,"por organizaciones no estatales contra la población general con fines políticos son delitos") 
-    pdf.cell(-10)
-    pdf.cell(10, 235,"aberrantes que, cuando tienen carácter generalizado o sistemático, pueden constituir crímenes")
-    pdf.cell(-10)
-    pdf.cell(10, 245,"contra la humanidad.")
+    pdf.cell(10, 215,"o sistemático, pueden constituir crímenes contra la humanidad")
     pdf.image('bandas.png', x=10, y=130, w=200, h=70, type = '', link = '')
     pdf.image('metodos.png', x=10, y=210, w=200, h=70, type = '', link = '')
     pdf.add_page()
