@@ -8,7 +8,6 @@ def grafico_barras(df,col,que_quiero,nombre_fichero,titulo):
     plt.subplots(figsize=(15,6))
     sns.countplot(col,data=df,palette='inferno',order=que_quiero)
     plt.xticks(rotation=90)
-    plt.legend("")
     plt.title(titulo.format(npais))
     plt.savefig(nombre_fichero)
     return
@@ -24,3 +23,20 @@ def grafico_vs(df):
     plt.title('Ataques vs muertos {}'.format(npais))
     fig.savefig('ataques.png', dpi=fig.dpi)
     return
+
+def nograf(df):
+    plt.subplots(figsize=(18,6))
+    sns.barplot(df['country_name'].value_counts()[:15].index,df['country_name'].value_counts()[:15].values,palette='Blues_d')
+    plt.title('Top atentados por pais')
+    plt.savefig('paises.png')
+
+def ppalbandaxmes(df):
+    cel=df.gname.value_counts().index[0]
+    if cel=="Unknown":
+        cel=df.gname.value_counts().index[1]
+    d=df[df["gname"]==cel]
+    plt.subplots(figsize=(15,6))
+    sns.countplot('imonth',data=d,palette='inferno',order=None)
+    plt.xticks(rotation=90)
+    plt.title('Actos cometidos por la principal organización por meses')
+    plt.savefig('meses.png')

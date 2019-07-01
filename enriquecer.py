@@ -1,6 +1,9 @@
 import pandas as pd
 import requests as req
 from bs4 import BeautifulSoup
+import os
+
+
 
 def scrapear(url, css):
     res = req.get(url)
@@ -14,3 +17,5 @@ def seleccionar(lista, desde, cada_cuanto):
 
 def limitar(lista, fin):
     return lista[:fin]
+
+

@@ -39,10 +39,13 @@ def report(x):
     bd=reportar.elegirpais(x)
     return bd
 
-def graficos(df):
+def graficos(df,df1):
     gra=analisis.grafico_barras(df,"gname",df.gname.value_counts()[:15].index,'bandas.png','Actos cometidos por cada organización en {}')
     gra=analisis.grafico_barras(df,"attacktype1_txt",df['attacktype1_txt'].value_counts().index, 'metodos.png', 'Metodo preferido por los terroristas en {}')
+    gra=analisis.grafico_barras(df,"iyear", None, 'años.png', 'Acciones terroristas en {} por años')
     gra=analisis.grafico_vs(df)
+    gra=analisis.nograf(df1)
+    gra=analisis.ppalbandaxmes(df)
     return 
 
 def pdf(df):
@@ -59,7 +62,7 @@ def exe():
     dd = (limpiarcositas(midata))
     merge=adquirir.mergear(miscrap,dd,'paises','country_name')
     entra=report(merge)
-    gr=graficos(entra)
+    gr=graficos(entra, merge)
     pun=pdf(entra)
     em=enviaremail()
 
