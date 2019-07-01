@@ -13,6 +13,7 @@ ap2 = os.environ["cse_id"]
 
 def crearpdf(df):
     npais=df.country_name.value_counts().index[0]
+    nciudad=df.provstate.value_counts().index[0]
     tiempo=time.asctime(time.localtime(time.time()))
     cel=df.gname.value_counts().index[0]
     anho=df.iyear.value_counts().index[0]
@@ -27,7 +28,7 @@ def crearpdf(df):
 
     #conectar con la api de NYT
     key = api_key_nyt
-    res = req.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q={}&sort=newest&api-key={}".format(cel,key))
+    res = req.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q={} {}&sort=newest&api-key={}".format(npais,cel,key))
     nyt=res.json()
     url=nyt["response"]["docs"][0]["web_url"]
     title=nyt["response"]["docs"][0]["headline"]["main"]
@@ -35,7 +36,7 @@ def crearpdf(df):
 
     #conectar api google 
 
-    rest = req.get("https://www.googleapis.com/customsearch/v1?key={}&cx={}&q={}&searchType=image".format(ap1,ap2,cel))
+    rest = req.get("https://www.googleapis.com/customsearch/v1?key={}&cx={}&q={} {}&searchType=image".format(ap1,ap2,npais,cel))
     goo=rest.json()
     ima=goo["items"][0]["link"]
   
@@ -75,17 +76,19 @@ def crearpdf(df):
     pdf.cell(-10)
     pdf.cell(10, 150,"· Principal grupo organizado: {}.".format(cel))
     pdf.cell(-10)
-    pdf.cell(10, 160,"· La probabilidad media de sufrir un atentado en {} es de: {}.".format(npais,ratio))
+    pdf.cell(10, 160,"· Ciudad con mayor numero de atentados: {}.".format(nciudad))
+    pdf.cell(-10)
+    pdf.cell(10, 170,"· La probabilidad media de sufrir un atentado en {} es de: {}.".format(npais,ratio))
     pdf.cell(-10)
     pdf.set_font('Arial', 'B', 14)
-    pdf.cell(10, 180,"Nota al lector:")
+    pdf.cell(10, 190,"Nota al lector:")
     pdf.set_font('Arial', '', 12)
     pdf.cell(-10)
-    pdf.cell(10, 195,"Los actos violentos perpetrados por organizaciones no estatales contra la población general")
+    pdf.cell(10, 205,"Los actos violentos perpetrados por organizaciones no estatales contra la población general")
     pdf.cell(-10)
-    pdf.cell(10, 205,"con fines políticos son delitos aberrantes que, cuando tienen carácter generalizado") 
+    pdf.cell(10, 215,"con fines políticos son delitos aberrantes que, cuando tienen carácter generalizado") 
     pdf.cell(-10)
-    pdf.cell(10, 215,"o sistemático, pueden constituir crímenes contra la humanidad")
+    pdf.cell(10, 225,"o sistemático, pueden constituir crímenes contra la humanidad")
     pdf.image('bandas.png', x=10, y=130, w=200, h=70, type = '', link = '')
     pdf.image('metodos.png', x=10, y=210, w=200, h=70, type = '', link = '')
     pdf.add_page()
