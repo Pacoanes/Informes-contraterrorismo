@@ -36,7 +36,7 @@ def crearpdf(df):
 
     #conectar api google 
 
-    rest = req.get("https://www.googleapis.com/customsearch/v1?key={}&cx={}&q={} {}&searchType=image".format(ap1,ap2,npais,cel))
+    rest = req.get("https://www.googleapis.com/customsearch/v1?key={}&cx={}&q={}&searchType=image".format(ap1,ap2,cel))
     goo=rest.json()
     ima=goo["items"][0]["link"]
   
@@ -72,11 +72,11 @@ def crearpdf(df):
     pdf.cell(10, 125, 'Puntos clave del informe')
     pdf.set_font('Arial', '', 12)
     pdf.cell(-10)
-    pdf.cell(10, 140,"· Peor año de {} fue {}. Año donde había un atentado cada {} horas.".format(npais,anho,ratio_anho))
+    pdf.cell(10, 140,"· Peor año de {} fue {}. Año donde había un atentado cada {} horas de media.".format(npais,anho,ratio_anho))
     pdf.cell(-10)
     pdf.cell(10, 150,"· Principal grupo organizado: {}.".format(cel))
     pdf.cell(-10)
-    pdf.cell(10, 160,"· Ciudad con mayor numero de atentados: {}.".format(nciudad))
+    pdf.cell(10, 160,"· Estado/provincia con mayor más atentados: {}.".format(nciudad))
     pdf.cell(-10)
     pdf.cell(10, 170,"· La probabilidad media de sufrir un atentado en {} es de: {}.".format(npais,ratio))
     pdf.cell(-10)
@@ -122,7 +122,7 @@ def crearpdf(df):
     pdf.line(5, 55, 200, 55)
     pdf.set_font('Arial', '', 12)
     pdf.cell(-110)
-    pdf.cell(10, 110, 'Enlace a ultima noticia en NYT. Publicado el {}'.format(date)) 
+    pdf.cell(10, 110, 'Enlace a última noticia en New York Times publicado el {}'.format(date)) 
     pdf.cell(-20)
     pdf.cell(-100, 125,"Título: {}".format(title)) 
     pdf.cell(90)

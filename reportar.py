@@ -4,7 +4,7 @@ from reportlab.lib.pagesizes import A4, letter
 
 
 def elegirpais(df):
-    comprobar=list(set(df.country_name.values))
+    comprobar=sorted(list(set(df.country_name.values)))
     while True:
         try:
             npais = str(input("Para elegir pais escribe su nombre en inglés: ").title())
@@ -34,12 +34,12 @@ def elegirpais(df):
 def verpaises(df):
     print("")
     print("........//////                                             \\\\\.......")
-    print("Bienvenido al generador de informes sobre Contraterrorismo de Ironhack.")
+    print("Bienvenido al generador de informes sobre Contraterrorismo.")
     print("........\\\\\\                                             /////.......")
     print("")
     print("Para generar el informe elige un pais del mundo.")
     print("¿quieres saber los paises disponibles?")
-    comprobar=list(set(df.country_name.values))
+    comprobar=sorted(list(set(df.country_name.values)))
     while True:
         try:
             x = str(input("[Y/n]: ").lower())
