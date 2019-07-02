@@ -3,7 +3,7 @@
 
 **La herramienta genera un informe de actividad terrorista según el pais deseado.**
 
-Para poder recolectar los datos partimos de un dataset grande, el GTD (Global Terrorism Database). URL: https://www.kaggle.com/START-UMD/gtd.Fuente original https://www.start.umd.edu/gtd/. Este archivo original pesa más de 100 megas (170mb) por lo que no se puede subir a GitHub. Para poder contar con él, hice una primera limpieza a base de borrar columnas donde su contenido era principalmente "NaN". El resultado de esta primera limpieza es un csv de 28 megas.
+Para poder recolectar los datos partimos de un dataset grande, el GTD (Global Terrorism Database). URL: https://www.kaggle.com/START-UMD/gtd. Fuente original https://www.start.umd.edu/gtd/. Este archivo original pesa más de 100 megas (170mb) por lo que no se puede subir a GitHub. Para poder contar con él, hice una primera limpieza a base de borrar columnas donde su contenido era principalmente "NaN". El resultado de esta primera limpieza es un csv de 28 megas.
 
 Es importante entender que el csv recoge cualquier actividad terrorista. Entedamos como acción terrorista "cualquier actos violento perpetrado por organizaciones no estatales contra la población general con fines políticos". Disponemos de información de cualquier ataque o accion terrorista perpetrado desde 1970 hasta 2017: Grupos terroristas, metodos empleados, ciudad, longitud y latitud, etc. 
 
