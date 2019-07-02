@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pandas as pd
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4, letter
@@ -25,7 +26,9 @@ def elegirpais(df):
     print("....")
     print("Recolectando datos...")
     print("....")
-    print("Accediendo a New York Times...")
+    print("Accediendo a la API de New York Times...")
+    print("....")
+    print("Accediendo a la API de Google...")
     print("....")
     print("Generando Informe...")
     print("....")

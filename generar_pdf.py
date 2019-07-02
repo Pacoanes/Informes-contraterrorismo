@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pandas as pd
 import time
 import requests as req 
@@ -52,6 +53,11 @@ def crearpdf(df):
         if picture.status_code == 200:
             with open("image.png", 'wb') as f:
                 f.write(picture.content)
+    # enlaces del CFR
+    resti = req.get("https://www.googleapis.com/customsearch/v1?key={}&cx={}&q={}&siteSearch=www.cfr.org".format(ap1,ap2,cel))
+    cfr=resti.json()
+    lcfr=cfr["items"][0]["link"]
+    tcfr=cfr["items"][0]["title"]
 
     #empieza pdf
     pdf=FPDF()                   
@@ -88,7 +94,7 @@ def crearpdf(df):
     pdf.cell(-10)
     pdf.cell(10, 215,"con fines políticos son delitos aberrantes que, cuando tienen carácter generalizado") 
     pdf.cell(-10)
-    pdf.cell(10, 225,"o sistemático, pueden constituir crímenes contra la humanidad")
+    pdf.cell(10, 225,"o sistemático, pueden constituir crímenes contra la humanidad.")
     pdf.image('bandas.png', x=10, y=130, w=200, h=70, type = '', link = '')
     pdf.image('metodos.png', x=10, y=210, w=200, h=70, type = '', link = '')
     pdf.add_page()
@@ -127,7 +133,13 @@ def crearpdf(df):
     pdf.cell(-100, 125,"Título: {}".format(title)) 
     pdf.cell(90)
     pdf.cell(70, 140,"Enlace: {}".format(url), link = url) 
-    pdf.cell(10)
-    pdf.image('image.{}'.format(ext), x=40, y=120, w=100, h=100, type = '', link = ima)
+    pdf.cell(-70)
+    pdf.cell(-100, 160,'Noticias Council on Foreign Relations') 
+    pdf.cell(80)
+    pdf.cell(130, 175,"          {}".format(tcfr)) 
+    pdf.cell(-100)
+    pdf.cell(0, 190,"{}".format(lcfr), link = lcfr) 
+    pdf.cell(20)
+    pdf.image('image.{}'.format(ext), x=40, y=150, w=100, h=100, type = '', link = ima)
     pdf.output('informe.pdf', 'F')
     return  

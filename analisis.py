@@ -5,7 +5,7 @@ import reportar
 
 def grafico_barras(df,col,que_quiero,nombre_fichero,titulo):
     npais=df.country_name.value_counts().index[0]
-    plt.subplots(figsize=(15,6))
+    plt.subplots(figsize=(15,8), tight_layout=True)
     sns.countplot(col,data=df,palette='inferno',order=que_quiero)
     plt.xticks(rotation=90)
     plt.title(titulo.format(npais))
