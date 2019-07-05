@@ -13,6 +13,8 @@ ap1 = os.environ["api_g"]
 ap2 = os.environ["cse_id"]  
 
 def crearpdf(df):
+    anho_inicio=df.iyear.min()
+    anho_fin=df.iyear.max()
     npais=df.country_name.value_counts().index[0]
     nciudad=df.provstate.value_counts().index[0]
     tiempo=time.asctime(time.localtime(time.time()))
@@ -53,11 +55,6 @@ def crearpdf(df):
         if picture.status_code == 200:
             with open("image.png", 'wb') as f:
                 f.write(picture.content)
-    # enlaces del CFR
-    resti = req.get("https://www.googleapis.com/customsearch/v1?key={}&cx={}&q={}&siteSearch=www.cfr.org".format(ap1,ap2,cel))
-    cfr=resti.json()
-    lcfr=cfr["items"][0]["link"]
-    tcfr=cfr["items"][0]["title"]
 
     #empieza pdf
     pdf=FPDF()                   
@@ -69,7 +66,7 @@ def crearpdf(df):
     pdf.line(5, 55, 200, 55)
     pdf.set_font('Arial', '', 12)
     pdf.cell(-20)  
-    pdf.cell(20, 100, 'pais: {}'.format(npais))
+    pdf.cell(20, 100, 'pais: {}, años: {} al {}'.format(npais, anho_inicio, anho_fin))
     pdf.cell(-120)
     pdf.cell(20, 110, 'fecha: {}'.format(tiempo))
     pdf.cell(60)  
@@ -133,13 +130,6 @@ def crearpdf(df):
     pdf.cell(-100, 125,"Título: {}".format(title)) 
     pdf.cell(90)
     pdf.cell(70, 140,"Enlace: {}".format(url), link = url) 
-    pdf.cell(-70)
-    pdf.cell(-100, 160,'Noticias Council on Foreign Relations') 
-    pdf.cell(80)
-    pdf.cell(130, 175,"          {}".format(tcfr)) 
-    pdf.cell(-100)
-    pdf.cell(0, 190,"{}".format(lcfr), link = lcfr) 
-    pdf.cell(20)
-    pdf.image('image.{}'.format(ext), x=40, y=150, w=100, h=100, type = '', link = ima)
+    pdf.image('image.{}'.format(ext), x=40, y=100, w=100, h=100, type = '', link = ima)
     pdf.output('informe.pdf', 'F')
     return  

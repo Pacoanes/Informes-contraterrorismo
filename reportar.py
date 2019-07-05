@@ -18,7 +18,21 @@ def elegirpais(df):
         except TypeError:
             print("Escribe bien el pais, parfavar...")
             continue 
-    bd=df[df["country_name"]==npais]
+    comprobar_anho=sorted(list(set(df.iyear.values)))
+    while True:
+        try:
+            anho_inicio = int(input("elige temporada desde: "))
+            anho_fin = int(input("al año: "))
+            if anho_inicio and anho_fin in comprobar_anho: 
+                print("....")
+                print("generando informe con estas fechas...")
+                print("....")
+                break
+            else: raise TypeError
+        except TypeError:
+            print("año mal escrito o no disponible, por favor, vuelve a ecribir el año correcto...")
+            continue         
+    bd=df[(df["country_name"]==npais) & (df["iyear"]>=anho_inicio) & (df["iyear"]<=anho_fin)]
     anho=bd.iyear.value_counts().index[0]
     num=bd.iyear.value_counts().values[0]
     ratio_anho=round(8760/num)
